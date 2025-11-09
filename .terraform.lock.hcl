@@ -9,7 +9,8 @@ provider "registry.terraform.io/hashicorp/template" {
 }
 
 provider "registry.terraform.io/yandex-cloud/yandex" {
-  version = "0.169.0"
+  version     = "0.169.0"
+  constraints = "0.169.0"
   hashes = [
     "h1:jC+VcJDroCbfErpIgG7Ltgl8v8aLUgKB9i1ftCFiMYo=",
   ]

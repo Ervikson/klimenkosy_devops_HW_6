@@ -18,21 +18,56 @@
 #   network_id     = yandex_vpc_network.develop.id
 #   v4_cidr_blocks = ["10.0.2.0/24"]
 # }
+resource "yandex_vpc_security_group" "vm_sg" {
+  name        = "vm-security-group"
+  description = "Security group for VMs"
+  network_id  = yandex_vpc_network.develop.id
+
+  ingress {
+    description    = "SSH"
+    protocol       = "TCP"
+    port           = 22
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description    = "HTTP"
+    protocol       = "TCP"
+    port           = 80
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description    = "HTTPS"
+    protocol       = "TCP"
+    port           = 443
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description    = "All outgoing traffic"
+    protocol       = "ANY"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 
 module "vpc_dev" {
   source         = "./modules/vpc"
 }
 
 module "analytics_vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "develop" 
-  network_id     = module.vpc_dev.network.id
-  subnet_zones   = [var.zone]
-  subnet_ids     = [module.vpc_dev.subnet.id]
-  instance_name  = "${var.analytics}-vm"
-  instance_count = 1
-  image_family   = "ubuntu-2004-lts"
-  public_ip      = true
+  source             = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=1fad353c98abb708c491ef22899fee4db46b717d"
+  env_name           = "develop" 
+  network_id         = module.vpc_dev.network.id
+  subnet_zones       = [var.zone]
+  subnet_ids         = [module.vpc_dev.subnet.id]
+  instance_name      = "${var.analytics}-vm"
+  instance_count     = 1
+  image_family       = "ubuntu-2004-lts"
+  public_ip          = false
+  nat                = false
+  security_group_ids = [yandex_vpc_security_group.vm_sg.id]
 
   labels = { 
     owner   = "klimenko.s.y",
@@ -47,15 +82,17 @@ module "analytics_vm" {
 }
 
 module "marketing_vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "stage"
-  network_id     = module.vpc_dev.network.id
-  subnet_zones   = [var.zone]
-  subnet_ids     = [module.vpc_dev.subnet.id]
-  instance_name  = "${var.marketing}-vm"
-  instance_count = 1
-  image_family   = "ubuntu-2004-lts"
-  public_ip      = true
+  source             = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=1fad353c98abb708c491ef22899fee4db46b717d"
+  env_name           = "stage"
+  network_id         = module.vpc_dev.network.id
+  subnet_zones       = [var.zone]
+  subnet_ids         = [module.vpc_dev.subnet.id]
+  instance_name      = "${var.marketing}-vm"
+  instance_count     = 1
+  image_family       = "ubuntu-2004-lts"
+  public_ip          = false
+  nat                = false
+  security_group_ids = [yandex_vpc_security_group.vm_sg.id]
 
   labels = { 
     owner   = "klimenko.s.y",

@@ -39,8 +39,3 @@ variable "username" {
   default     = "ubuntu"
 }
 
-variable "cidr" {
-  type        = string
-  description = "IP and mask for subnet"
-  default     = "10.0.3.0/24"
-}

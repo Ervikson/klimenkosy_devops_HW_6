@@ -27,6 +27,10 @@ terraform {
       source  = "yandex-cloud/yandex"
       version = "0.169.0"
     }
+    template = {
+      source  = "hashicorp/template"
+      version = ">= 2.2.0"
+    }
   }
 }
 

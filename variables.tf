@@ -39,3 +39,26 @@ variable "username" {
   default     = "ubuntu"
 }
 
+variable "single_ip" {
+  type        = string
+  description = "ip-адрес с валидацией через cidrhost"
+  default     = "1920.168.0.1"
+
+  validation {
+    condition     = can(cidrhost("${var.single_ip}/32", 0))
+    error_message = "Значение должно быть валидным IPv4 адресом."
+  }
+}
+
+variable "ip_list" {
+  type        = list(string)
+  description = "список ip-адресов"
+  default     = ["192.168.0.1", "1.1.1.1", "1270.0.0.1"]
+
+  validation {
+    condition = alltrue([
+      for ip in var.ip_list : can(cidrhost("${ip}/32", 0))
+    ])
+    error_message = "Все значения в списке должны быть валидными IPv4 адресами."
+  }
+}

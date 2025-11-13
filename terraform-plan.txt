@@ -1,0 +1,325 @@
+[0m[1mdata.template_file.cloudinit: Reading...[0m[0m
+[0m[1mdata.template_file.cloudinit: Read complete after 0s [id=6c199e5e0d6b225b1ecdc8b46c8faa0749f061f298b3be93415c5bbb7150554d][0m
+[0m[1mmodule.marketing_vm.data.yandex_compute_image.my_image: Reading...[0m[0m
+[0m[1mmodule.analytics_vm.data.yandex_compute_image.my_image: Reading...[0m[0m
+[0m[1mmodule.marketing_vm.data.yandex_compute_image.my_image: Read complete after 0s [id=fd8nvsua0sq94uqoep04][0m
+[0m[1mmodule.analytics_vm.data.yandex_compute_image.my_image: Read complete after 0s [id=fd8nvsua0sq94uqoep04][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # yandex_vpc_security_group.vm_sg[0m will be created
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "vm_sg" {
+      [32m+[0m[0m created_at  = (known after apply)
+      [32m+[0m[0m description = "Security group for VMs"
+      [32m+[0m[0m folder_id   = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m labels      = (known after apply)
+      [32m+[0m[0m name        = "vm-security-group"
+      [32m+[0m[0m network_id  = (known after apply)
+      [32m+[0m[0m status      = (known after apply)
+
+      [32m+[0m[0m egress {
+          [32m+[0m[0m description       = "All outgoing traffic"
+          [32m+[0m[0m from_port         = -1
+          [32m+[0m[0m id                = (known after apply)
+          [32m+[0m[0m labels            = (known after apply)
+          [32m+[0m[0m port              = -1
+          [32m+[0m[0m protocol          = "ANY"
+          [32m+[0m[0m to_port           = -1
+          [32m+[0m[0m v4_cidr_blocks    = [
+              [32m+[0m[0m "0.0.0.0/0",
+            ]
+          [32m+[0m[0m v6_cidr_blocks    = []
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+
+      [32m+[0m[0m ingress {
+          [32m+[0m[0m description       = "HTTP"
+          [32m+[0m[0m from_port         = -1
+          [32m+[0m[0m id                = (known after apply)
+          [32m+[0m[0m labels            = (known after apply)
+          [32m+[0m[0m port              = 80
+          [32m+[0m[0m protocol          = "TCP"
+          [32m+[0m[0m to_port           = -1
+          [32m+[0m[0m v4_cidr_blocks    = [
+              [32m+[0m[0m "0.0.0.0/0",
+            ]
+          [32m+[0m[0m v6_cidr_blocks    = []
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+      [32m+[0m[0m ingress {
+          [32m+[0m[0m description       = "HTTPS"
+          [32m+[0m[0m from_port         = -1
+          [32m+[0m[0m id                = (known after apply)
+          [32m+[0m[0m labels            = (known after apply)
+          [32m+[0m[0m port              = 443
+          [32m+[0m[0m protocol          = "TCP"
+          [32m+[0m[0m to_port           = -1
+          [32m+[0m[0m v4_cidr_blocks    = [
+              [32m+[0m[0m "0.0.0.0/0",
+            ]
+          [32m+[0m[0m v6_cidr_blocks    = []
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+      [32m+[0m[0m ingress {
+          [32m+[0m[0m description       = "SSH"
+          [32m+[0m[0m from_port         = -1
+          [32m+[0m[0m id                = (known after apply)
+          [32m+[0m[0m labels            = (known after apply)
+          [32m+[0m[0m port              = 22
+          [32m+[0m[0m protocol          = "TCP"
+          [32m+[0m[0m to_port           = -1
+          [32m+[0m[0m v4_cidr_blocks    = [
+              [32m+[0m[0m "0.0.0.0/0",
+            ]
+          [32m+[0m[0m v6_cidr_blocks    = []
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+    }
+
+[1m  # module.analytics_vm.yandex_compute_instance.vm[0][0m will be created
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "vm" {
+      [32m+[0m[0m allow_stopping_for_update = true
+      [32m+[0m[0m created_at                = (known after apply)
+      [32m+[0m[0m description               = "TODO: description; {{terraform yyy managed}}"
+      [32m+[0m[0m folder_id                 = (known after apply)
+      [32m+[0m[0m fqdn                      = (known after apply)
+      [32m+[0m[0m gpu_cluster_id            = (known after apply)
+      [32m+[0m[0m hardware_generation       = (known after apply)
+      [32m+[0m[0m hostname                  = "develop-analytics-vm-0"
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m labels                    = {
+          [32m+[0m[0m "owner"   = "klimenko.s.y"
+          [32m+[0m[0m "project" = "analytics"
+        }
+      [32m+[0m[0m maintenance_grace_period  = (known after apply)
+      [32m+[0m[0m maintenance_policy        = (known after apply)
+      [32m+[0m[0m metadata                  = {
+          [32m+[0m[0m "serial-port-enable" = "1"
+          [32m+[0m[0m "user-data"          = <<-EOT
+                #cloud-config
+                users:
+                  - name: ubuntu
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+                    ssh_authorized_keys:
+                      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbaP7R+TG1DnL0H2odf/SO989MzNdHlhZCSyRTIgPkg root@Ubu-home
+                
+                package_update: true
+                package_upgrade: false
+                packages:
+                  - vim
+                  - nginx
+            EOT
+        }
+      [32m+[0m[0m name                      = "develop-analytics-vm-0"
+      [32m+[0m[0m network_acceleration_type = "standard"
+      [32m+[0m[0m platform_id               = "standard-v1"
+      [32m+[0m[0m status                    = (known after apply)
+      [32m+[0m[0m zone                      = "ru-central1-a"
+
+      [32m+[0m[0m boot_disk {
+          [32m+[0m[0m auto_delete = true
+          [32m+[0m[0m device_name = (known after apply)
+          [32m+[0m[0m disk_id     = (known after apply)
+          [32m+[0m[0m mode        = (known after apply)
+
+          [32m+[0m[0m initialize_params {
+              [32m+[0m[0m block_size  = (known after apply)
+              [32m+[0m[0m description = (known after apply)
+              [32m+[0m[0m image_id    = "fd8nvsua0sq94uqoep04"
+              [32m+[0m[0m name        = (known after apply)
+              [32m+[0m[0m size        = 10
+              [32m+[0m[0m snapshot_id = (known after apply)
+              [32m+[0m[0m type        = "network-hdd"
+            }
+        }
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface {
+          [32m+[0m[0m index              = (known after apply)
+          [32m+[0m[0m ip_address         = (known after apply)
+          [32m+[0m[0m ipv4               = true
+          [32m+[0m[0m ipv6               = (known after apply)
+          [32m+[0m[0m ipv6_address       = (known after apply)
+          [32m+[0m[0m mac_address        = (known after apply)
+          [32m+[0m[0m nat                = false
+          [32m+[0m[0m nat_ip_address     = (known after apply)
+          [32m+[0m[0m nat_ip_version     = (known after apply)
+          [32m+[0m[0m security_group_ids = (known after apply)
+          [32m+[0m[0m subnet_id          = (known after apply)
+        }
+
+      [32m+[0m[0m placement_policy (known after apply)
+
+      [32m+[0m[0m resources {
+          [32m+[0m[0m core_fraction = 5
+          [32m+[0m[0m cores         = 2
+          [32m+[0m[0m memory        = 1
+        }
+
+      [32m+[0m[0m scheduling_policy {
+          [32m+[0m[0m preemptible = true
+        }
+    }
+
+[1m  # module.marketing_vm.yandex_compute_instance.vm[0][0m will be created
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "vm" {
+      [32m+[0m[0m allow_stopping_for_update = true
+      [32m+[0m[0m created_at                = (known after apply)
+      [32m+[0m[0m description               = "TODO: description; {{terraform yyy managed}}"
+      [32m+[0m[0m folder_id                 = (known after apply)
+      [32m+[0m[0m fqdn                      = (known after apply)
+      [32m+[0m[0m gpu_cluster_id            = (known after apply)
+      [32m+[0m[0m hardware_generation       = (known after apply)
+      [32m+[0m[0m hostname                  = "stage-marketing-vm-0"
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m labels                    = {
+          [32m+[0m[0m "owner"   = "klimenko.s.y"
+          [32m+[0m[0m "project" = "marketing"
+        }
+      [32m+[0m[0m maintenance_grace_period  = (known after apply)
+      [32m+[0m[0m maintenance_policy        = (known after apply)
+      [32m+[0m[0m metadata                  = {
+          [32m+[0m[0m "serial-port-enable" = "1"
+          [32m+[0m[0m "user-data"          = <<-EOT
+                #cloud-config
+                users:
+                  - name: ubuntu
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+                    ssh_authorized_keys:
+                      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbaP7R+TG1DnL0H2odf/SO989MzNdHlhZCSyRTIgPkg root@Ubu-home
+                
+                package_update: true
+                package_upgrade: false
+                packages:
+                  - vim
+                  - nginx
+            EOT
+        }
+      [32m+[0m[0m name                      = "stage-marketing-vm-0"
+      [32m+[0m[0m network_acceleration_type = "standard"
+      [32m+[0m[0m platform_id               = "standard-v1"
+      [32m+[0m[0m status                    = (known after apply)
+      [32m+[0m[0m zone                      = "ru-central1-a"
+
+      [32m+[0m[0m boot_disk {
+          [32m+[0m[0m auto_delete = true
+          [32m+[0m[0m device_name = (known after apply)
+          [32m+[0m[0m disk_id     = (known after apply)
+          [32m+[0m[0m mode        = (known after apply)
+
+          [32m+[0m[0m initialize_params {
+              [32m+[0m[0m block_size  = (known after apply)
+              [32m+[0m[0m description = (known after apply)
+              [32m+[0m[0m image_id    = "fd8nvsua0sq94uqoep04"
+              [32m+[0m[0m name        = (known after apply)
+              [32m+[0m[0m size        = 10
+              [32m+[0m[0m snapshot_id = (known after apply)
+              [32m+[0m[0m type        = "network-hdd"
+            }
+        }
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface {
+          [32m+[0m[0m index              = (known after apply)
+          [32m+[0m[0m ip_address         = (known after apply)
+          [32m+[0m[0m ipv4               = true
+          [32m+[0m[0m ipv6               = (known after apply)
+          [32m+[0m[0m ipv6_address       = (known after apply)
+          [32m+[0m[0m mac_address        = (known after apply)
+          [32m+[0m[0m nat                = false
+          [32m+[0m[0m nat_ip_address     = (known after apply)
+          [32m+[0m[0m nat_ip_version     = (known after apply)
+          [32m+[0m[0m security_group_ids = (known after apply)
+          [32m+[0m[0m subnet_id          = (known after apply)
+        }
+
+      [32m+[0m[0m placement_policy (known after apply)
+
+      [32m+[0m[0m resources {
+          [32m+[0m[0m core_fraction = 5
+          [32m+[0m[0m cores         = 2
+          [32m+[0m[0m memory        = 1
+        }
+
+      [32m+[0m[0m scheduling_policy {
+          [32m+[0m[0m preemptible = true
+        }
+    }
+
+[1m  # module.vpc_dev.yandex_vpc_network.develop[0m will be created
+[0m  [32m+[0m[0m resource "yandex_vpc_network" "develop" {
+      [32m+[0m[0m created_at                = (known after apply)
+      [32m+[0m[0m default_security_group_id = (known after apply)
+      [32m+[0m[0m folder_id                 = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m labels                    = (known after apply)
+      [32m+[0m[0m name                      = "develop-net"
+      [32m+[0m[0m subnet_ids                = (known after apply)
+    }
+
+[1m  # module.vpc_dev.yandex_vpc_subnet.develop-sub[0m will be created
+[0m  [32m+[0m[0m resource "yandex_vpc_subnet" "develop-sub" {
+      [32m+[0m[0m created_at     = (known after apply)
+      [32m+[0m[0m folder_id      = (known after apply)
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m labels         = (known after apply)
+      [32m+[0m[0m name           = "develop-sub-ru-central1-a"
+      [32m+[0m[0m network_id     = (known after apply)
+      [32m+[0m[0m v4_cidr_blocks = [
+          [32m+[0m[0m "10.0.3.0/24",
+        ]
+      [32m+[0m[0m v6_cidr_blocks = (known after apply)
+      [32m+[0m[0m zone           = "ru-central1-a"
+    }
+
+[1mPlan:[0m 5 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m dev_vpc_network = (known after apply)
+  [32m+[0m[0m dev_vpc_subnet  = (known after apply)
+  [32m+[0m[0m out             = {
+      [32m+[0m[0m network_id = (known after apply)
+      [32m+[0m[0m subnet_id  = [
+          [32m+[0m[0m (known after apply),
+        ]
+    }
+  [32m+[0m[0m project_labels  = {
+      [32m+[0m[0m analytics = {
+          [32m+[0m[0m fqdn  = [
+              [32m+[0m[0m (known after apply),
+            ]
+          [32m+[0m[0m value = [
+              [32m+[0m[0m {
+                  [32m+[0m[0m owner   = "klimenko.s.y"
+                  [32m+[0m[0m project = "analytics"
+                },
+            ]
+        }
+      [32m+[0m[0m marketing = {
+          [32m+[0m[0m fqdn  = [
+              [32m+[0m[0m (known after apply),
+            ]
+          [32m+[0m[0m value = [
+              [32m+[0m[0m {
+                  [32m+[0m[0m owner   = "klimenko.s.y"
+                  [32m+[0m[0m project = "marketing"
+                },
+            ]
+        }
+    }
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

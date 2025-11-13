@@ -24,8 +24,8 @@ output "dev_vpc_subnet" {
 
 output "out" {
   value = {
-    network_id = yandex_vpc_network.develop.id
-    subnet_id  = yandex_vpc_subnet.develop.id
+    network_id = module.vpc_dev.network.id
+    subnet_id  = [module.vpc_dev.subnet.id]
   }
   description = "Combined output with network and subnet IDs"
 }

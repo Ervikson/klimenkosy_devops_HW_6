@@ -21,7 +21,7 @@
 resource "yandex_vpc_security_group" "vm_sg" {
   name        = "vm-security-group"
   description = "Security group for VMs"
-  network_id  = yandex_vpc_network.develop.id
+  network_id  = module.vpc_dev.network.id
 
   ingress {
     description    = "SSH"
@@ -66,7 +66,6 @@ module "analytics_vm" {
   instance_count     = 1
   image_family       = "ubuntu-2004-lts"
   public_ip          = false
-  nat                = false
   security_group_ids = [yandex_vpc_security_group.vm_sg.id]
 
   labels = { 
@@ -91,7 +90,6 @@ module "marketing_vm" {
   instance_count     = 1
   image_family       = "ubuntu-2004-lts"
   public_ip          = false
-  nat                = false
   security_group_ids = [yandex_vpc_security_group.vm_sg.id]
 
   labels = { 
